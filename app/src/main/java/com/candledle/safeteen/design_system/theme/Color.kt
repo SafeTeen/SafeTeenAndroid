@@ -18,4 +18,6 @@ object SafeColor{
     val Gray800 = Color(0xFF424242)
     val Gray900 = Color(0xFF2F2F2F)
     val Black = Color(0xFF000000)
+
+    val Red = Color(0xFFF04D51)
 }
