@@ -22,12 +22,16 @@ import com.candledle.safeteen.feature.main.mypage.QnA
 @Composable
 internal fun MyQnas(
     questions: List<QnA>,
+    backgroundColor: Color,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(questions) {
-            MyQna(question = it.question)
+            MyQna(
+                question = it.question,
+                backgroundColor = backgroundColor,
+            )
         }
     }
 }
@@ -36,6 +40,7 @@ internal fun MyQnas(
 internal fun MyQna(
     question: String,
     questionColor: Color = SafeColor.Black,
+    backgroundColor: Color,
     onClick: (() -> Unit)? = null,
 ) {
     Column(
@@ -44,7 +49,7 @@ internal fun MyQna(
             .defaultMinSize(minHeight = 44.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick?.invoke() }
-            .background(color = SafeColor.White)
+            .background(color = backgroundColor)
             .padding(12.dp),
         verticalArrangement = Arrangement.Center,
     ) {

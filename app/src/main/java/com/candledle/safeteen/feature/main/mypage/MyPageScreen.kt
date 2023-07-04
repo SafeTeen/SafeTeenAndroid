@@ -75,12 +75,14 @@ internal fun MyPageScreen(
             MyQna(
                 question = stringResource(id = R.string.my_page_edit_profile),
                 onClick = onClickEditProfile,
+                backgroundColor = SafeColor.White,
             )
             Spacer(modifier = Modifier.height(8.dp))
             MyQna(
                 question = stringResource(id = R.string.my_page_sign_out),
                 questionColor = SafeColor.Red,
                 onClick = onClickSignOut,
+                backgroundColor = SafeColor.White,
             )
         }
     }
@@ -152,7 +154,10 @@ private fun MyQnas(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(questions) {
-            MyQna(question = it.question)
+            MyQna(
+                question = it.question,
+                backgroundColor = SafeColor.White,
+            )
         }
     }
 }
