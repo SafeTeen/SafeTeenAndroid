@@ -21,6 +21,7 @@ import com.candledle.safeteen.design_system.theme.SafeColor
 
 @Composable
 internal fun AuthButton(
+    buttonText: String,
     onButtonClicked: () -> Unit,
     description: String,
     descriptionColor: Color,
@@ -32,7 +33,7 @@ internal fun AuthButton(
         horizontalAlignment = Alignment.CenterHorizontally,
     ){
         SafeButton(
-            text = stringResource(id = R.string.sign_in),
+            text = buttonText,
             color = SafeColor.Main500,
             onClick = onButtonClicked,
         )
