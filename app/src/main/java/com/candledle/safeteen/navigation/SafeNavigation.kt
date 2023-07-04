@@ -6,4 +6,14 @@ object SafeNavigation{
 
     const val SignIn = "signIn"
     const val SignUp = "signUp"
+
+    const val Main = "main"
+
+    object Navigation{
+        const val Home = "home"
+        const val Game = "game"
+        const val Info = "info"
+        const val Shop = "shop"
+        const val MyPage = "myPage"
+    }
 }

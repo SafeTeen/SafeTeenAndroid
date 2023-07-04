@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Safeteen</string>
 
+    <!--    Navigation-->
+
+    <string name="navigation_home">홈</string>
+    <string name="navigation_game">게임</string>
+    <string name="navigation_info">정보</string>
+    <string name="navigation_shop">상점</string>
+    <string name="navigation_my_page">마이</string>
+
     <!--    Landing Screen-->
 
     <string name="landing_slogan">학생들의 안전한 생활을 위한,</string>
