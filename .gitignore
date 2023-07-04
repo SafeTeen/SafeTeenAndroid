@@ -10,3 +10,5 @@
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 
 .idea/inspectionProfiles/Project_Default.xml
+
+.gradle/8.0/fileHashes/resourceHashesCache.bin
