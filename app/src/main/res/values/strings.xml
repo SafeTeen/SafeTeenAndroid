@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Safeteen</string>
+
+    <!--    Landing Screen-->
+
+    <string name="landing_slogan">학생들의 안전한 생활을 위한,</string>
+    <string name="landing_safeteen">Safe Teen</string>
+
+    <!--    Login Screen-->
+
+    <string name="sign_in">로그인</string>
+    <string name="sign_in_no_account">계정이 없으신가요?</string>
+    <string name="sign_in_do_sign_up">회원가입하기</string>
+
+
+
 </resources>
