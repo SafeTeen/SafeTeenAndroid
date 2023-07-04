@@ -5,4 +5,5 @@ object SafeNavigation{
     const val Landing = "lading"
 
     const val SignIn = "signIn"
+    const val SignUp = "signUp"
 }
