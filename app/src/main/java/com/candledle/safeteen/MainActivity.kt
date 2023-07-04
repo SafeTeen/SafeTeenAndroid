@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.candledle.safeteen.design_system.theme.SafeteenTheme
 import com.candledle.safeteen.feature.landing.LandingScreen
+import com.candledle.safeteen.feature.signin.SignInScreen
 import com.candledle.safeteen.navigation.SafeNavigation
 
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,12 @@ class MainActivity : ComponentActivity() {
                             route = SafeNavigation.Landing,
                         ) {
                             LandingScreen(navController = navHostController)
+                        }
+
+                        composable(
+                            route = SafeNavigation.SignIn,
+                        ){
+                            SignInScreen(navController = navHostController)
                         }
                     }
                 }

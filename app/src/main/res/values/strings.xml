@@ -12,6 +12,9 @@
     <string name="sign_in_no_account">계정이 없으신가요?</string>
     <string name="sign_in_do_sign_up">회원가입하기</string>
 
+    <string name="sign_in_id">아이디</string>
+    <string name="sign_in_password">비밀번호</string>
+
 
 
 </resources>
