@@ -15,6 +15,13 @@
     <string name="sign_in_id">아이디</string>
     <string name="sign_in_password">비밀번호</string>
 
+    <!--    SignUp Screen-->
 
+    <string name="sign_up">회원가입</string>
+    <string name="sign_up_have_account">이미 계정이 있으신가요?</string>
+    <string name="sign_up_do_sign_in">로그인 하기</string>
+
+    <string name="sign_up_nick_name">닉네임</string>
+    <string name="sign_up_password_repeat">비밀번호 재확인</string>
 
 </resources>

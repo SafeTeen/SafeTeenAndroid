@@ -31,11 +31,19 @@ internal fun LandingScreen(
 ) {
 
     val onSignInButtonClick = {
-        navController.navigate(SafeNavigation.SignIn)
+        navController.navigate(SafeNavigation.SignIn){
+            popUpTo(SafeNavigation.SignIn){
+                inclusive = true
+            }
+        }
     }
 
     val onClickActionText = {
-
+        navController.navigate(SafeNavigation.SignUp){
+            popUpTo(SafeNavigation.SignUp){
+                inclusive = true
+            }
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -68,6 +76,7 @@ internal fun LandingScreen(
             Logo()
             Spacer(modifier = Modifier.weight(1f))
             AuthButton(
+                buttonText = stringResource(id = R.string.sign_up),
                 onButtonClicked = onSignInButtonClick,
                 description = stringResource(id = R.string.sign_in_no_account),
                 descriptionColor = SafeColor.White,

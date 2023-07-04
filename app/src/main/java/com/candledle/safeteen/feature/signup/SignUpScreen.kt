@@ -1,4 +1,4 @@
-package com.candledle.safeteen.feature.signin
+package com.candledle.safeteen.feature.signup
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,12 +23,18 @@ import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
-fun SignInScreen(
+fun SignUpScreen(
     navController: NavController,
 ) {
 
+    var nickName by remember { mutableStateOf("") }
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordRepeat by remember { mutableStateOf("") }
+
+    val onNickNameChange = { value: String ->
+        nickName = value
+    }
 
     val onIdChange = { value: String ->
         id = value
@@ -38,12 +44,20 @@ fun SignInScreen(
         password = value
     }
 
-    val onButtonClicked = {
-        
+    val onPasswordRepeatChange = { value: String ->
+        passwordRepeat = value
+    }
+
+    val onSignUpButtonClicked = {
+
     }
 
     val onClickActionText = {
-        navController.navigate(SafeNavigation.SignUp)
+        navController.navigate(SafeNavigation.SignIn) {
+            popUpTo(SafeNavigation.SignIn) {
+                inclusive = true
+            }
+        }
     }
 
     Column(
@@ -59,21 +73,33 @@ fun SignInScreen(
             SafeTextField(
                 value = id,
                 onValueChanged = onIdChange,
+                hint = stringResource(id = R.string.sign_up_nick_name),
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            SafeTextField(
+                value = id,
+                onValueChanged = onIdChange,
                 hint = stringResource(id = R.string.sign_in_id),
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            SafeTextField(
+                value = id,
+                onValueChanged = onIdChange,
+                hint = stringResource(id = R.string.sign_in_password),
             )
             Spacer(modifier = Modifier.height(12.dp))
             SafeTextField(
                 value = password,
                 onValueChanged = onPasswordChange,
-                hint = stringResource(id = R.string.sign_in_password),
+                hint = stringResource(id = R.string.sign_up_password_repeat),
             )
             Spacer(modifier = Modifier.weight(1f))
             AuthButton(
-                buttonText = stringResource(id = R.string.sign_in),
-                onButtonClicked = onButtonClicked,
-                description = stringResource(id = R.string.sign_in_no_account),
+                buttonText = stringResource(id = R.string.sign_up),
+                onButtonClicked = onSignUpButtonClicked,
+                description = stringResource(id = R.string.sign_up_have_account),
                 descriptionColor = SafeColor.Gray700,
-                actionText = stringResource(id = R.string.sign_in_do_sign_up),
+                actionText = stringResource(id = R.string.sign_up_do_sign_in),
                 onClickActionText = onClickActionText,
             )
         }
