@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.candledle.safeteen.design_system.theme.SafeteenTheme
-import com.candledle.safeteen.feature.home.MainScreen
+import com.candledle.safeteen.feature.main.MainScreen
 import com.candledle.safeteen.feature.landing.LandingScreen
 import com.candledle.safeteen.feature.signin.SignInScreen
 import com.candledle.safeteen.feature.signup.SignUpScreen

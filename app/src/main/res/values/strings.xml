@@ -32,4 +32,15 @@
     <string name="sign_up_nick_name">닉네임</string>
     <string name="sign_up_password_repeat">비밀번호 재확인</string>
 
+    <!--    MyPage Screen-->
+
+    <string name="my_page_current_reward">현재 리워드</string>
+    <string name="my_page_cureent_rank">현재 등급</string>
+
+    <string name="my_page_qna">내가 등록한 QnA</string>
+    <string name="my_page_manage_account">계정 관리</string>
+
+    <string name="my_page_edit_profile">프로필 수정</string>
+    <string name="my_page_sign_out">로그아웃</string>
+
 </resources>
