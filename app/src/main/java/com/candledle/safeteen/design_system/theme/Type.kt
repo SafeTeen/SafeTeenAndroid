@@ -26,7 +26,7 @@ private val maxLine = 1000
 private val pretendardFamily = FontFamily(
     Font(R.font.pretendard_bold, FontWeight.Bold),
     Font(R.font.pretendard_medium, FontWeight.Medium),
-    Font(R.font.pretendard_bold, FontWeight.Normal),
+    Font(R.font.pretendard_regular, FontWeight.Normal),
 )
 
 object SafeTypography{
