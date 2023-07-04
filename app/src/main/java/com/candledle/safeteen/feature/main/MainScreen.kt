@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.candledle.safeteen.feature.main.info.InformationScreen
 import com.candledle.safeteen.feature.main.mypage.MyPageScreen
 import com.candledle.safeteen.navigation.BottomBar
 import com.candledle.safeteen.navigation.SafeNavigation
@@ -36,14 +37,14 @@ fun MainScreen() {
             }
 
             composable(SafeNavigation.Navigation.Info) {
-
+                InformationScreen(navController = navHostController)
             }
 
             composable(SafeNavigation.Navigation.Shop) {
 
             }
 
-            composable(SafeNavigation.Navigation.MyPage){
+            composable(SafeNavigation.Navigation.MyPage) {
                 MyPageScreen(navController = navHostController)
             }
         }

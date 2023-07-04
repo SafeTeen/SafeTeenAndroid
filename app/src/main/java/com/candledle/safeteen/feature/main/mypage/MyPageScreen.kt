@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.candledle.safeteen.R
+import com.candledle.safeteen.component.MyQna
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Caption
@@ -74,12 +75,14 @@ internal fun MyPageScreen(
             MyQna(
                 question = stringResource(id = R.string.my_page_edit_profile),
                 onClick = onClickEditProfile,
+                backgroundColor = SafeColor.White,
             )
             Spacer(modifier = Modifier.height(8.dp))
             MyQna(
                 question = stringResource(id = R.string.my_page_sign_out),
                 questionColor = SafeColor.Red,
                 onClick = onClickSignOut,
+                backgroundColor = SafeColor.White,
             )
         }
     }
@@ -151,31 +154,11 @@ private fun MyQnas(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(questions) {
-            MyQna(question = it.question)
+            MyQna(
+                question = it.question,
+                backgroundColor = SafeColor.White,
+            )
         }
-    }
-}
-
-@Composable
-private fun MyQna(
-    question: String,
-    questionColor: Color = SafeColor.Black,
-    onClick: (() -> Unit)? = null,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .defaultMinSize(minHeight = 44.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .clickable { onClick?.invoke() }
-            .background(color = SafeColor.White)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Body3(
-            text = question,
-            color = questionColor,
-        )
     }
 }
 
