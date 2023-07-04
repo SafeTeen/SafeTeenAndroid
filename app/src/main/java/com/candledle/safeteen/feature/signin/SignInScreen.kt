@@ -20,6 +20,7 @@ import com.candledle.safeteen.component.AuthButton
 import com.candledle.safeteen.component.SafeTeenHeader
 import com.candledle.safeteen.design_system.textfield.SafeTextField
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
 fun SignInScreen(
@@ -38,11 +39,11 @@ fun SignInScreen(
     }
 
     val onButtonClicked = {
-
+        
     }
 
     val onClickActionText = {
-
+        navController.navigate(SafeNavigation.SignUp)
     }
 
     Column(
@@ -68,6 +69,7 @@ fun SignInScreen(
             )
             Spacer(modifier = Modifier.weight(1f))
             AuthButton(
+                buttonText = stringResource(id = R.string.sign_in),
                 onButtonClicked = onButtonClicked,
                 description = stringResource(id = R.string.sign_in_no_account),
                 descriptionColor = SafeColor.Gray700,
