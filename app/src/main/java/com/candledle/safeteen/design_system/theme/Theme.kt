@@ -1,4 +1,4 @@
-package com.candledle.safeteen.ui.theme
+package com.candledle.safeteen.design_system.theme
 
 import android.app.Activity
 import androidx.compose.material3.MaterialTheme
