@@ -7,23 +7,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.candledle.safeteen.R
+import com.candledle.safeteen.component.Logo
 import com.candledle.safeteen.design_system.button.SafeButton
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Body4
@@ -68,12 +65,12 @@ internal fun LandingScreen(
                 text = stringResource(id = R.string.sign_in),
                 color = SafeColor.Main500,
             ) {
-                
+
             }
             Spacer(modifier = Modifier.height(12.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-            ){
+            ) {
                 Body4(
                     text = stringResource(id = R.string.sign_in_no_account),
                     color = SafeColor.White,
@@ -86,21 +83,5 @@ internal fun LandingScreen(
             }
             Spacer(modifier = Modifier.height(44.dp))
         }
-    }
-}
-
-@Composable
-private fun Logo(){
-    Box(
-        modifier = Modifier
-            .size(106.dp)
-            .clip(RoundedCornerShape(20.dp))
-            .background(SafeColor.White),
-        contentAlignment = Alignment.Center,
-    ){
-        Image(
-            painter = painterResource(id = R.drawable.ic_safeteen_logo),
-            contentDescription = null,
-        )
     }
 }
