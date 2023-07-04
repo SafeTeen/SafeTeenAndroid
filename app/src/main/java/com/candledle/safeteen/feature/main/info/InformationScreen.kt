@@ -3,13 +3,11 @@ package com.candledle.safeteen.feature.main.info
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.MyQnas
+import com.candledle.safeteen.design_system.button.SafeSmallButton
 import com.candledle.safeteen.design_system.theme.Body3
-import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.feature.main.mypage.QnA
@@ -103,43 +101,22 @@ private fun SelectButtons(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
     ) {
-        SelectButton(
+        SafeSmallButton(
             text = stringResource(id = R.string.information_qna),
-            selected = currentSelected == SelectedMenu.QNA,
+            textColor = if (currentSelected == SelectedMenu.QNA) SafeColor.White
+            else SafeColor.Black,
+            backgroundColor = if (currentSelected == SelectedMenu.QNA) SafeColor.Main500
+            else SafeColor.Gray300,
             onClick = onClickQnaButton,
         )
         Spacer(modifier = Modifier.width(8.dp))
-        SelectButton(
+        SafeSmallButton(
             text = stringResource(id = R.string.information_manual),
-            selected = currentSelected == SelectedMenu.MANUAL,
-            onClick = onClickManualButton,
-        )
-    }
-}
-
-@Composable
-private fun SelectButton(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .defaultMinSize(minWidth = 48.dp)
-            .height(26.dp)
-            .clip(RoundedCornerShape(50.dp))
-            .background(
-                color = if (selected) SafeColor.Main500
-                else SafeColor.Gray300,
-            )
-            .clickable(onClick = onClick)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        Caption(
-            text = text,
-            color = if (selected) SafeColor.White
+            textColor = if (currentSelected == SelectedMenu.MANUAL) SafeColor.White
             else SafeColor.Black,
+            backgroundColor = if (currentSelected == SelectedMenu.MANUAL) SafeColor.Main500
+            else SafeColor.Gray300,
+            onClick = onClickManualButton,
         )
     }
 }

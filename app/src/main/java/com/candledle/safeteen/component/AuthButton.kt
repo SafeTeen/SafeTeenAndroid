@@ -11,10 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.candledle.safeteen.R
-import com.candledle.safeteen.design_system.button.SafeButton
+import com.candledle.safeteen.design_system.button.SafeLargeButton
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Body4
 import com.candledle.safeteen.design_system.theme.SafeColor
@@ -27,14 +25,14 @@ internal fun AuthButton(
     descriptionColor: Color,
     actionText: String,
     onClickActionText: () -> Unit,
-){
+) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ){
-        SafeButton(
+    ) {
+        SafeLargeButton(
             text = buttonText,
-            color = SafeColor.Main500,
+            backgroundColor = SafeColor.Main500,
             onClick = onButtonClicked,
         )
         Spacer(modifier = Modifier.height(12.dp))
