@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.candledle.safeteen.R
+import com.candledle.safeteen.component.MyQna
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Caption
@@ -153,29 +154,6 @@ private fun MyQnas(
         items(questions) {
             MyQna(question = it.question)
         }
-    }
-}
-
-@Composable
-private fun MyQna(
-    question: String,
-    questionColor: Color = SafeColor.Black,
-    onClick: (() -> Unit)? = null,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .defaultMinSize(minHeight = 44.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .clickable { onClick?.invoke() }
-            .background(color = SafeColor.White)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Body3(
-            text = question,
-            color = questionColor,
-        )
     }
 }
 
