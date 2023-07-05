@@ -53,4 +53,9 @@
     <string name="shop_current_reward">현재 리워드</string>
     <string name="shop_description">리워드 포인트를 뱃지로 교환할 수 있습니다.</string>
 
+    <!--    Question Details Screen-->
+
+    <string name="question_details_enter_answer">답변을 입력해주세요</string>
+    <string name="question_details_create">등록</string>
+
 </resources>
