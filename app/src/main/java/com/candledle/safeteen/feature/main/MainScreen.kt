@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.candledle.safeteen.feature.main.home.HomeScreen
 import com.candledle.safeteen.feature.main.info.InformationScreen
 import com.candledle.safeteen.feature.main.mypage.MyPageScreen
 import com.candledle.safeteen.feature.shop.ShopScreen
@@ -33,7 +34,7 @@ fun MainScreen(
             startDestination = SafeNavigation.Navigation.Home,
         ) {
             composable(SafeNavigation.Navigation.Home) {
-
+                HomeScreen(navController = navController)
             }
 
             composable(SafeNavigation.Navigation.Game) {
