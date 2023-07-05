@@ -9,6 +9,14 @@
     <string name="navigation_shop">상점</string>
     <string name="navigation_my_page">마이</string>
 
+    <!--    Rank-->
+
+    <string name="rank_heart_shake">심장마비</string>
+    <string name="rank_lumbar_disk">허리디스크</string>
+    <string name="rank_flu">독감</string>
+    <string name="rank_cold">감기</string>
+    <string name="rank_happy">건강</string>
+
     <!--    Landing Screen-->
 
     <string name="landing_slogan">학생들의 안전한 생활을 위한,</string>
@@ -35,7 +43,7 @@
     <!--    MyPage Screen-->
 
     <string name="my_page_current_reward">현재 리워드</string>
-    <string name="my_page_cureent_rank">현재 등급</string>
+    <string name="my_page_current_rank">현재 등급</string>
 
     <string name="my_page_qna">내가 등록한 QnA</string>
     <string name="my_page_manage_account">계정 관리</string>
@@ -66,5 +74,10 @@
     <string name="create_question_enter_question_description">질문에 대한 자세한 설명을 작성해주세요</string>
 
     <string name="create_question_do_create">작성하기</string>
+
+    <!--    Home Screen-->
+
+    <string name="home_reward_point">리워드 포인트</string>
+    <string name="home_today_challenge">오늘의 챌린지</string>
 
 </resources>
