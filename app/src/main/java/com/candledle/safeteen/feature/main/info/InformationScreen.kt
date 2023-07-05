@@ -215,6 +215,6 @@ data class ManualEntity(
     val manual: String,
 )
 
-enum class SelectedMenu {
+private enum class SelectedMenu {
     QNA, MANUAL,
 }
