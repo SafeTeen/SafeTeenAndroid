@@ -1,6 +1,7 @@
 package com.candledle.safeteen.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,17 +28,19 @@ internal fun Header(
             .fillMaxWidth()
             .height(56.dp),
         contentAlignment = Alignment.Center,
-    ){
+    ) {
         Body1(
             text = text,
             color = SafeColor.Gray900,
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
-        ){
+        ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
+                modifier = Modifier.clickable { onDismiss() },
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = null,
             )

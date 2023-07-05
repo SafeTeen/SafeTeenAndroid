@@ -45,7 +45,7 @@ internal fun CreateQuestion(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Header(text = "Q&A 작성") {
                 navController.popBackStack()
             }

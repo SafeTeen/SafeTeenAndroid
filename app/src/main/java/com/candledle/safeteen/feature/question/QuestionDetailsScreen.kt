@@ -54,13 +54,13 @@ internal fun QuestionDetailsScreen(
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Header(text = "Q&A") {
-            navController.popBackStack()
-        }
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
+            Spacer(modifier = Modifier.height(40.dp))
+            Header(text = "Q&A") {
+                navController.popBackStack()
+            }
             Question(
                 title = "학교에서 지진 났을 때 책상 아래 vs 운동장으로 질주 뭐가 좋을까요?",
                 content = "학교에서 지진이 났을 때 책상 아래가 더 안전한가요, 아니면 운동장으로 나가는게 더 안전한가요?",
