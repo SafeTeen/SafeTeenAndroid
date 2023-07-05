@@ -39,7 +39,11 @@ fun SignInScreen(
     }
 
     val onSignInButtonClick = {
-        
+        navController.navigate(SafeNavigation.Main) {
+            popUpTo(SafeNavigation.SignIn) {
+                inclusive = true
+            }
+        }
     }
 
     val onClickActionText = {

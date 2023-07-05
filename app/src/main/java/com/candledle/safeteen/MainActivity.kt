@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navHostController,
-                    startDestination = SafeNavigation.Main,
+                    startDestination = SafeNavigation.Landing,
                 ) {
                     composable(
                         route = SafeNavigation.Landing,
