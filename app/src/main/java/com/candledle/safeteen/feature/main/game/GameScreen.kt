@@ -51,8 +51,7 @@ internal fun GameScreen(
     val url = "https://safe-teen-frontend.vercel.app/game"
 
     Column(
-        modifier = Modifier.fillMaxSize()
-            .background(SafeColor.Gray300),
+        modifier = Modifier.fillMaxSize(),
     ){
         Spacer(modifier = Modifier.height(48.dp))
         AndroidView(
@@ -73,5 +72,6 @@ internal fun GameScreen(
                 it.loadUrl(url)
             },
         )
+        Spacer(modifier = Modifier.height(48.dp))
     }
 }

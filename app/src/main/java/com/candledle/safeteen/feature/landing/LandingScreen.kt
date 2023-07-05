@@ -40,11 +40,7 @@ internal fun LandingScreen(
     }
 
     val onClickActionText = {
-        navController.navigate(SafeNavigation.SignUp) {
-            popUpTo(SafeNavigation.Landing) {
-                inclusive = true
-            }
-        }
+        navController.navigate(SafeNavigation.SignUp)
     }
 
     Box(

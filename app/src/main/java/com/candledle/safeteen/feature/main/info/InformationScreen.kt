@@ -24,29 +24,34 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.MyQnas
 import com.candledle.safeteen.design_system.button.SafeSmallButton
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
-import com.candledle.safeteen.feature.main.mypage.QnA
+import com.candledle.safeteen.getList
+import com.candledle.safeteen.getPreferences
 import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
 internal fun InformationScreen(
     navController: NavController,
 ) {
+
+    val context = LocalContext.current
+    val preference = getPreferences(context = context)
 
     var currentSelected by rememberSaveable { mutableStateOf(SelectedMenu.QNA) }
 
@@ -61,6 +66,8 @@ internal fun InformationScreen(
     val onClickCreateQnaButton = {
         navController.navigate(SafeNavigation.CreateQuestion)
     }
+
+    val qnas = preference.getList(PrefKey.Common.qnas)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -80,11 +87,7 @@ internal fun InformationScreen(
                 SelectedMenu.QNA -> {
                     Spacer(modifier = Modifier.height(24.dp))
                     MyQnas(
-                        questions = listOf(
-                            QnA("학교에서 지진 났을 때 책상 아래 vs 운동장으로 질주 뭐가 좋을까요??"),
-                            QnA("안전불감증 해결방법 추천 받는다"),
-                            QnA("기숙사에서 계속 실수로 화재 경보기가 울리는데 점점 안전불감증이 생겨요 어떡할까요 안녕하세요 정말 걱정이네요"),
-                        ),
+                        questions = qnas,
                         backgroundColor = SafeColor.Gray300,
                         navController = navController,
                     )
@@ -125,7 +128,7 @@ internal fun InformationScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(84.dp))
+            Spacer(modifier = Modifier.height(104.dp))
         }
     }
 }

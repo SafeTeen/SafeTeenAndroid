@@ -34,16 +34,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading4
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.getPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,6 +55,11 @@ import kotlinx.coroutines.launch
 internal fun HomeScreen(
     navController: NavController,
 ) {
+
+    val context = LocalContext.current
+
+    val preferences = getPreferences(context)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +87,7 @@ internal fun HomeScreen(
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
-            CurrentPoint(currentReward = 2300)
+            CurrentPoint(currentReward = preferences.getInt(PrefKey.User.reward, 0))
             Spacer(modifier = Modifier.height(16.dp))
             Body1(text = stringResource(id = R.string.home_today_challenge))
             Spacer(modifier = Modifier.height(8.dp))
@@ -106,18 +114,22 @@ internal fun HomeScreen(
     }
 }
 
-@Composable
-private fun CurrentPoint(
-    currentReward: Int,
-) {
-
-    val rank = when (currentReward) {
+internal fun getRank(currentReward: Int): Rank{
+    return when (currentReward) {
         in Rank.HeartShake.minReward until Rank.HeartShake.maxReward -> Rank.HeartShake
         in Rank.LumbarDisk.minReward until Rank.LumbarDisk.maxReward -> Rank.LumbarDisk
         in Rank.Flu.minReward until Rank.Flu.maxReward -> Rank.Flu
         in Rank.Cold.minReward until Rank.Cold.maxReward -> Rank.Cold
         else -> Rank.Happy
     }
+}
+
+@Composable
+private fun CurrentPoint(
+    currentReward: Int,
+) {
+
+    val rank = getRank(currentReward)
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -156,7 +168,7 @@ private fun CurrentPoint(
         Spacer(modifier = Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Caption(
-                text = stringResource(id = R.string.my_page_current_reward),
+                text = stringResource(id = R.string.my_page_current_rank),
                 color = SafeColor.Gray700,
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -292,7 +304,7 @@ sealed class Rank(
     val maxReward: Int,
 ) {
     object HeartShake : Rank(
-        drawable = R.drawable.ic_heart_badge,
+        drawable = R.drawable.ic_heart_shake,
         rank = R.string.rank_heart_shake,
         minReward = 0,
         maxReward = 1500,
