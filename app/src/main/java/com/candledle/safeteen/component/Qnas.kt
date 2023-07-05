@@ -15,15 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.feature.main.mypage.QnA
+import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
 internal fun MyQnas(
     questions: List<QnA>,
     backgroundColor: Color,
-    onItemClick: () -> Unit,
+    navController: NavController,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -32,8 +34,9 @@ internal fun MyQnas(
             MyQna(
                 question = it.question,
                 backgroundColor = backgroundColor,
-                onClick = onItemClick,
-            )
+            ){
+                navController.navigate(SafeNavigation.QuestionDetails)
+            }
         }
     }
 }

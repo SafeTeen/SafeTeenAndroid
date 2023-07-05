@@ -3,6 +3,7 @@ package com.candledle.safeteen.feature.main.info
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,7 +81,7 @@ internal fun InformationScreen(
                     MyQnas(
                         questions = listOf(QnA("seifjseifj"), QnA("sejisejfisj")),
                         backgroundColor = SafeColor.Gray300,
-                        onItemClick = { navController.navigate(SafeNavigation.QuestionDetails) }
+                        navController = navController,
                     )
                 }
 
@@ -91,6 +92,7 @@ internal fun InformationScreen(
                             ManualEntity(R.drawable.ic_fire, "화재"),
                             ManualEntity(R.drawable.ic_motorcycle, "오토바이"),
                         ),
+                        navController = navController,
                     )
                 }
             }
@@ -154,6 +156,7 @@ private fun SelectButtons(
 @Composable
 private fun Manuals(
     manualEntities: List<ManualEntity>,
+    navController: NavController,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -164,7 +167,9 @@ private fun Manuals(
             Manual(
                 drawable = it.drawable,
                 manual = it.manual,
-            )
+            ) {
+                navController.navigate(SafeNavigation.ManualDetails)
+            }
         }
     }
 }
@@ -173,8 +178,12 @@ private fun Manuals(
 private fun Manual(
     @DrawableRes drawable: Int,
     manual: String,
+    onClick: () -> Unit,
 ) {
     Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
