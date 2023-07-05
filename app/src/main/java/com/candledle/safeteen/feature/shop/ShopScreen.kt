@@ -3,6 +3,7 @@ package com.candledle.safeteen.feature.shop
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -116,6 +116,7 @@ private fun Items(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(itemEntities) {
             Item(
@@ -133,12 +134,17 @@ private fun Item(
     name: String,
     point: Int,
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .width(94.dp)
+            .padding(horizontal = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Box(
             modifier = Modifier
-                .size(112.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(color = SafeColor.White),
+                .background(color = SafeColor.White)
+                .padding(40.dp),
             contentAlignment = Alignment.Center,
         ) {
             Image(
@@ -152,15 +158,11 @@ private fun Item(
             color = SafeColor.Gray900,
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Box(
-            modifier = Modifier.width(112.dp),
-        ) {
-            SafeMediumButton(
-                text = "$point point",
-                backgroundColor = SafeColor.Main500,
-                onClick = {}
-            )
-        }
+        SafeMediumButton(
+            text = "$point point",
+            backgroundColor = SafeColor.Main500,
+            onClick = {}
+        )
         Spacer(modifier = Modifier.height(4.dp))
     }
 }
