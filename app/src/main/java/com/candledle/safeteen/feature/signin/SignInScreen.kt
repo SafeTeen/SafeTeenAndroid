@@ -38,7 +38,7 @@ fun SignInScreen(
         password = value
     }
 
-    val onButtonClicked = {
+    val onSignInButtonClick = {
         
     }
 
@@ -53,7 +53,7 @@ fun SignInScreen(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             SafeTeenHeader()
             Spacer(modifier = Modifier.height(24.dp))
             SafeTextField(
@@ -70,7 +70,7 @@ fun SignInScreen(
             Spacer(modifier = Modifier.weight(1f))
             AuthButton(
                 buttonText = stringResource(id = R.string.sign_in),
-                onButtonClicked = onButtonClicked,
+                onButtonClicked = onSignInButtonClick,
                 description = stringResource(id = R.string.sign_in_no_account),
                 descriptionColor = SafeColor.Gray700,
                 actionText = stringResource(id = R.string.sign_in_do_sign_up),

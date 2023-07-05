@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -59,7 +60,7 @@ internal fun InformationScreen(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             Heading6(text = stringResource(id = R.string.navigation_info))
             Spacer(modifier = Modifier.height(12.dp))
             SelectButtons(
@@ -126,8 +127,9 @@ private fun Manuals(
     manualEntities: List<ManualEntity>,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(184.dp),
-        horizontalArrangement = Arrangement.Center,
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(manualEntities) {
             Manual(
@@ -143,25 +145,27 @@ private fun Manual(
     @DrawableRes drawable: Int,
     manual: String,
 ) {
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Box(
             modifier = Modifier
-                .size(160.dp)
+                .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
                 .background(color = SafeColor.Gray300),
             contentAlignment = Alignment.Center,
         ) {
             Image(
-                modifier = Modifier.size(
-                    width = 100.dp,
-                    height = 78.dp,
-                ),
+                modifier = Modifier.size(104.dp),
                 painter = painterResource(id = drawable),
                 contentDescription = null,
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
-        Body3(text = manual)
+        Body3(
+            modifier = Modifier.align(Alignment.Start),
+            text = manual,
+        )
     }
 }
 

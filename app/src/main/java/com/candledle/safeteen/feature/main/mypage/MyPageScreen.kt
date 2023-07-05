@@ -56,7 +56,7 @@ internal fun MyPageScreen(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             Heading6(text = stringResource(id = R.string.navigation_my_page))
             Spacer(modifier = Modifier.height(12.dp))
             MyInformation(

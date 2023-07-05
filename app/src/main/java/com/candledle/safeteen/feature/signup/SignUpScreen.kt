@@ -67,7 +67,7 @@ fun SignUpScreen(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             SafeTeenHeader()
             Spacer(modifier = Modifier.height(24.dp))
             SafeTextField(

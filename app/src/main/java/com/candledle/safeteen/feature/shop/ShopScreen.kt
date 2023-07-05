@@ -3,15 +3,20 @@ package com.candledle.safeteen.feature.shop
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -52,7 +57,7 @@ internal fun ShopScreen(
         Column(
             modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             Heading6(text = stringResource(id = R.string.navigation_shop))
             Spacer(modifier = Modifier.height(12.dp))
             Row {
@@ -75,32 +80,32 @@ internal fun ShopScreen(
             Items(
                 itemEntities = listOf(
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_crown_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_silicon_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_trophy_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_heart_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_star_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_dsm_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
@@ -116,6 +121,8 @@ private fun Items(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(itemEntities) {
             Item(
@@ -133,15 +140,19 @@ private fun Item(
     name: String,
     point: Int,
 ) {
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Box(
             modifier = Modifier
-                .size(112.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(color = SafeColor.White),
             contentAlignment = Alignment.Center,
         ) {
             Image(
+                modifier = Modifier
+                    .aspectRatio(1f)
+                    .padding(24.dp),
                 painter = painterResource(id = drawable),
                 contentDescription = null,
             )
@@ -152,15 +163,11 @@ private fun Item(
             color = SafeColor.Gray900,
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Box(
-            modifier = Modifier.width(112.dp),
-        ) {
-            SafeMediumButton(
-                text = "$point point",
-                backgroundColor = SafeColor.Main500,
-                onClick = {}
-            )
-        }
+        SafeMediumButton(
+            text = "$point point",
+            backgroundColor = SafeColor.Main500,
+            onClick = {}
+        )
         Spacer(modifier = Modifier.height(4.dp))
     }
 }
