@@ -9,7 +9,8 @@ object SafeNavigation{
 
     const val Main = "main"
 
-    const val QuestionDetails = "createQuestion"
+    const val CreateQuestion = "createQuestion"
+    const val QuestionDetails = "createDetails"
 
     object Navigation{
         const val Home = "home"

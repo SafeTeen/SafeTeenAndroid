@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,9 @@ import com.candledle.safeteen.design_system.theme.Body2
 import com.candledle.safeteen.design_system.theme.SafeColor
 
 @Composable
-fun SafeTextField(
+private fun SafeBasicTextField(
+    modifier: Modifier,
+    arrangement: Arrangement.Vertical,
     value: String,
     onValueChanged: (String) -> Unit,
     hint: String,
@@ -25,9 +28,7 @@ fun SafeTextField(
     BasicTextField(
         value = value,
         onValueChange = onValueChanged,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(48.dp)
+        modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .border(
                 width = 1.dp,
@@ -41,7 +42,7 @@ fun SafeTextField(
     ) { innerTextField ->
         Column(
             modifier = Modifier.fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = arrangement,
         ) {
             Body2(
                 text = if (value.isEmpty()) hint
@@ -51,4 +52,36 @@ fun SafeTextField(
         }
         innerTextField()
     }
+}
+
+@Composable
+internal fun SafeMediumTextField(
+    value: String,
+    onValueChanged: (String) -> Unit,
+    hint: String,
+) {
+    SafeBasicTextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        arrangement = Arrangement.Center,
+        value = value,
+        onValueChanged = onValueChanged,
+        hint = hint,
+    )
+}
+
+@Composable
+internal fun SafeLargeTextField(
+    value: String,
+    onValueChanged: (String) -> Unit,
+    hint: String,
+) {
+    SafeBasicTextField(
+        modifier = Modifier.fillMaxSize(),
+        arrangement = Arrangement.Top,
+        value = value,
+        onValueChanged = onValueChanged,
+        hint = hint,
+    )
 }

@@ -57,7 +57,7 @@ internal fun InformationScreen(
     }
 
     val onClickCreateQnaButton = {
-        
+        navController.navigate(SafeNavigation.CreateQuestion)
     }
 
     Column(

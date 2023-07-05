@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.AuthButton
 import com.candledle.safeteen.component.SafeTeenHeader
-import com.candledle.safeteen.design_system.textfield.SafeTextField
+import com.candledle.safeteen.design_system.textfield.SafeMediumTextField
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.navigation.SafeNavigation
 
@@ -70,25 +70,25 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.height(48.dp))
             SafeTeenHeader()
             Spacer(modifier = Modifier.height(24.dp))
-            SafeTextField(
+            SafeMediumTextField(
                 value = id,
                 onValueChanged = onIdChange,
                 hint = stringResource(id = R.string.sign_up_nick_name),
             )
             Spacer(modifier = Modifier.height(12.dp))
-            SafeTextField(
+            SafeMediumTextField(
                 value = id,
                 onValueChanged = onIdChange,
                 hint = stringResource(id = R.string.sign_in_id),
             )
             Spacer(modifier = Modifier.height(12.dp))
-            SafeTextField(
+            SafeMediumTextField(
                 value = id,
                 onValueChanged = onIdChange,
                 hint = stringResource(id = R.string.sign_in_password),
             )
             Spacer(modifier = Modifier.height(12.dp))
-            SafeTextField(
+            SafeMediumTextField(
                 value = password,
                 onValueChanged = onPasswordChange,
                 hint = stringResource(id = R.string.sign_up_password_repeat),
