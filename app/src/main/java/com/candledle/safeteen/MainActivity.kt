@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.candledle.safeteen.design_system.theme.SafeteenTheme
 import com.candledle.safeteen.feature.landing.LandingScreen
 import com.candledle.safeteen.feature.main.MainScreen
+import com.candledle.safeteen.feature.manual.ManualDetailsScreen
 import com.candledle.safeteen.feature.question.CreateQuestion
 import com.candledle.safeteen.feature.question.QuestionDetailsScreen
 import com.candledle.safeteen.feature.signin.SignInScreen
@@ -74,6 +75,12 @@ class MainActivity : ComponentActivity() {
                         route = SafeNavigation.QuestionDetails,
                     ){
                         QuestionDetailsScreen(navController = navHostController)
+                    }
+
+                    composable(
+                        route = SafeNavigation.ManualDetails,
+                    ){
+                        ManualDetailsScreen(navController = navHostController)
                     }
                 }
             }

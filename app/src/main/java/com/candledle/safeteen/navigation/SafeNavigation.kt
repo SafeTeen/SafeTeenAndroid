@@ -12,6 +12,8 @@ object SafeNavigation{
     const val CreateQuestion = "createQuestion"
     const val QuestionDetails = "createDetails"
 
+    const val ManualDetails = "manualDetails"
+
     object Navigation{
         const val Home = "home"
         const val Game = "game"
