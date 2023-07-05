@@ -2,11 +2,13 @@ package com.candledle.safeteen.feature.main.mypage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,9 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.candledle.safeteen.R
@@ -75,19 +79,46 @@ internal fun MyPageScreen(
             Spacer(modifier = Modifier.height(20.dp))
             Body3(text = stringResource(id = R.string.my_page_manage_account))
             Spacer(modifier = Modifier.height(8.dp))
-            MyQna(
+            Card(
                 question = stringResource(id = R.string.my_page_edit_profile),
                 onClick = onClickEditProfile,
                 backgroundColor = SafeColor.White,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            MyQna(
+            Card(
                 question = stringResource(id = R.string.my_page_sign_out),
                 questionColor = SafeColor.Red,
                 onClick = onClickSignOut,
                 backgroundColor = SafeColor.White,
             )
         }
+    }
+}
+
+@Composable
+internal fun Card(
+    question: String,
+    questionColor: Color = SafeColor.Black,
+    backgroundColor: Color,
+    onClick: (() -> Unit)? = null,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = 44.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick?.invoke() }
+            .background(color = backgroundColor)
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Body3(
+            text = question,
+            color = questionColor,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+        )
     }
 }
 

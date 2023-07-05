@@ -80,7 +80,11 @@ internal fun InformationScreen(
                 SelectedMenu.QNA -> {
                     Spacer(modifier = Modifier.height(24.dp))
                     MyQnas(
-                        questions = listOf(QnA("seifjseifj"), QnA("sejisejfisj")),
+                        questions = listOf(
+                            QnA("학교에서 지진 났을 때 책상 아래 vs 운동장으로 질주 뭐가 좋을까요??"),
+                            QnA("안전불감증 해결방법 추천 받는다"),
+                            QnA("기숙사에서 계속 실수로 화재 경보기가 울리는데 점점 안전불감증이 생겨요 어떡할까요 안녕하세요 정말 걱정이네요"),
+                        ),
                         backgroundColor = SafeColor.Gray300,
                         navController = navController,
                     )
