@@ -3,23 +3,18 @@ package com.candledle.safeteen
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.design_system.theme.SafeteenTheme
 import com.candledle.safeteen.feature.landing.LandingScreen
 import com.candledle.safeteen.feature.main.MainScreen
+import com.candledle.safeteen.feature.question.CreateQuestion
+import com.candledle.safeteen.feature.question.QuestionDetailsScreen
 import com.candledle.safeteen.feature.signin.SignInScreen
 import com.candledle.safeteen.feature.signup.SignUpScreen
 import com.candledle.safeteen.navigation.SafeNavigation
@@ -43,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navHostController,
-                    startDestination = SafeNavigation.Landing,
+                    startDestination = SafeNavigation.Main,
                 ) {
                     composable(
                         route = SafeNavigation.Landing,
@@ -66,7 +61,19 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = SafeNavigation.Main,
                     ) {
-                        MainScreen()
+                        MainScreen(navController = navHostController)
+                    }
+
+                    composable(
+                        route = SafeNavigation.CreateQuestion
+                    ) {
+                        CreateQuestion(navController = navHostController)
+                    }
+                    
+                    composable(
+                        route = SafeNavigation.QuestionDetails,
+                    ){
+                        QuestionDetailsScreen(navController = navHostController)
                     }
                 }
             }
