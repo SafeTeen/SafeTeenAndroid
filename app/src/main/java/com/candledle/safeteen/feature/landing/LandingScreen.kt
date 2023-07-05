@@ -32,7 +32,7 @@ internal fun LandingScreen(
 
     val onSignInButtonClick = {
         navController.navigate(SafeNavigation.SignIn){
-            popUpTo(SafeNavigation.SignIn){
+            popUpTo(SafeNavigation.Landing){
                 inclusive = true
             }
         }
@@ -40,7 +40,7 @@ internal fun LandingScreen(
 
     val onClickActionText = {
         navController.navigate(SafeNavigation.SignUp) {
-            popUpTo(SafeNavigation.SignUp) {
+            popUpTo(SafeNavigation.Landing) {
                 inclusive = true
             }
         }
