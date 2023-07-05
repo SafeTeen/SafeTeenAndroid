@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -75,32 +76,32 @@ internal fun ShopScreen(
             Items(
                 itemEntities = listOf(
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_crown_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_silicon_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_trophy_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_heart_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_star_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
                     ItemEntity(
-                        drawable = R.drawable.ic_shop,
+                        drawable = R.drawable.ic_dsm_badge,
                         name = "fsefse",
                         point = 1000,
                     ),
@@ -116,7 +117,8 @@ private fun Items(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(itemEntities) {
             Item(
@@ -135,19 +137,18 @@ private fun Item(
     point: Int,
 ) {
     Column(
-        modifier = Modifier
-            .width(94.dp)
-            .padding(horizontal = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
-                .background(color = SafeColor.White)
-                .padding(40.dp),
+                .background(color = SafeColor.White),
             contentAlignment = Alignment.Center,
         ) {
             Image(
+                modifier = Modifier
+                    .size(104.dp)
+                    .padding(24.dp),
                 painter = painterResource(id = drawable),
                 contentDescription = null,
             )
