@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +39,7 @@ import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.feature.main.mypage.QnA
+import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
 internal fun InformationScreen(
@@ -52,6 +54,10 @@ internal fun InformationScreen(
 
     val onClickManualButton = {
         currentSelected = SelectedMenu.MANUAL
+    }
+
+    val onClickCreateQnaButton = {
+        
     }
 
     Column(
@@ -74,6 +80,7 @@ internal fun InformationScreen(
                     MyQnas(
                         questions = listOf(QnA("seifjseifj"), QnA("sejisejfisj")),
                         backgroundColor = SafeColor.Gray300,
+                        onItemClick = { navController.navigate(SafeNavigation.QuestionDetails) }
                     )
                 }
 
@@ -88,7 +95,29 @@ internal fun InformationScreen(
                 }
             }
         }
-
+        Spacer(modifier = Modifier.weight(1f))
+        if (currentSelected == SelectedMenu.QNA) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                FloatingActionButton(
+                    modifier = Modifier.size(48.dp),
+                    onClick = onClickCreateQnaButton,
+                    backgroundColor = SafeColor.Main500,
+                ) {
+                    Box {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_create_qna),
+                            contentDescription = null,
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(84.dp))
+        }
     }
 }
 

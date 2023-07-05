@@ -23,6 +23,7 @@ import com.candledle.safeteen.feature.main.mypage.QnA
 internal fun MyQnas(
     questions: List<QnA>,
     backgroundColor: Color,
+    onItemClick: () -> Unit,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -31,6 +32,7 @@ internal fun MyQnas(
             MyQna(
                 question = it.question,
                 backgroundColor = backgroundColor,
+                onClick = onItemClick,
             )
         }
     }
