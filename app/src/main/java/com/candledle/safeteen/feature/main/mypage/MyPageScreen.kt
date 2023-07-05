@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.feature.main.home.Rank
+import com.candledle.safeteen.room.database.SafeteenDatabase
 
 @Composable
 internal fun MyPageScreen(
@@ -46,6 +48,8 @@ internal fun MyPageScreen(
     val onClickSignOut = {
 
     }
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
