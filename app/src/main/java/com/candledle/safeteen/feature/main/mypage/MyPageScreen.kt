@@ -1,13 +1,12 @@
 package com.candledle.safeteen.feature.main.mypage
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,11 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.MyQna
 import com.candledle.safeteen.design_system.theme.Body1
@@ -61,9 +59,9 @@ internal fun MyPageScreen(
             Spacer(modifier = Modifier.height(12.dp))
             MyInformation(
                 profileImageUrl = "",
-                name = "name",
-                currentReward = "1212",
-                currentRank = "1222",
+                name = "정승훈",
+                currentReward = "2000",
+                currentRank = "감기",
             )
             Spacer(modifier = Modifier.height(20.dp))
             Body3(text = stringResource(id = R.string.my_page_qna))
@@ -114,17 +112,28 @@ private fun MyInformation(
                 .background(color = SafeColor.Gray300),
             contentAlignment = Alignment.Center,
         ) {
-            AsyncImage(
-                model = profileImageUrl,
+            Image(
+                modifier = Modifier.size(34.dp),
+                painter = painterResource(id = R.drawable.ic_cold),
                 contentDescription = null,
             )
         }
         Spacer(modifier = Modifier.width(12.dp))
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.SpaceAround,
         ) {
-            Body1(text = name)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Body1(text = name)
+                Spacer(modifier = Modifier.width(4.dp))
+                Image(
+                    modifier = Modifier.size(14.dp),
+                    painter = painterResource(id = R.drawable.ic_crown_badge),
+                    contentDescription = null,
+                )
+            }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {

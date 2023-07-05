@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,7 +16,9 @@ import com.candledle.safeteen.navigation.SafeNavigation
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    navController: NavController,
+) {
 
     val scaffoldState = rememberScaffoldState()
 
@@ -38,7 +41,7 @@ fun MainScreen() {
             }
 
             composable(SafeNavigation.Navigation.Info) {
-                InformationScreen(navController = navHostController)
+                InformationScreen(navController = navController)
             }
 
             composable(SafeNavigation.Navigation.Shop) {

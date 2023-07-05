@@ -3,6 +3,7 @@ package com.candledle.safeteen.feature.main.info
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +48,7 @@ internal fun InformationScreen(
     navController: NavController,
 ) {
 
-    var currentSelected by remember { mutableStateOf(SelectedMenu.QNA) }
+    var currentSelected by rememberSaveable { mutableStateOf(SelectedMenu.QNA) }
 
     val onClickQnaButton = {
         currentSelected = SelectedMenu.QNA
@@ -80,7 +82,7 @@ internal fun InformationScreen(
                     MyQnas(
                         questions = listOf(QnA("seifjseifj"), QnA("sejisejfisj")),
                         backgroundColor = SafeColor.Gray300,
-                        onItemClick = { navController.navigate(SafeNavigation.QuestionDetails) }
+                        navController = navController,
                     )
                 }
 
@@ -89,8 +91,11 @@ internal fun InformationScreen(
                     Manuals(
                         manualEntities = listOf(
                             ManualEntity(R.drawable.ic_fire, "화재"),
-                            ManualEntity(R.drawable.ic_motorcycle, "오토바이"),
+                            ManualEntity(R.drawable.ic_kick_board, "전동킥보드"),
+                            ManualEntity(R.drawable.ic_wind, "태풍"),
+                            ManualEntity(R.drawable.ic_motorcycle, "오토바이")
                         ),
+                        navController = navController,
                     )
                 }
             }
@@ -154,6 +159,7 @@ private fun SelectButtons(
 @Composable
 private fun Manuals(
     manualEntities: List<ManualEntity>,
+    navController: NavController,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -164,7 +170,9 @@ private fun Manuals(
             Manual(
                 drawable = it.drawable,
                 manual = it.manual,
-            )
+            ) {
+                navController.navigate(SafeNavigation.ManualDetails)
+            }
         }
     }
 }
@@ -173,8 +181,12 @@ private fun Manuals(
 private fun Manual(
     @DrawableRes drawable: Int,
     manual: String,
+    onClick: () -> Unit,
 ) {
     Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(

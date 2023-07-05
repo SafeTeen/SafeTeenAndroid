@@ -40,7 +40,7 @@ internal fun Header(
         ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                modifier = Modifier.clickable { onDismiss() },
+                modifier = Modifier.safeClickable { onDismiss() },
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = null,
             )

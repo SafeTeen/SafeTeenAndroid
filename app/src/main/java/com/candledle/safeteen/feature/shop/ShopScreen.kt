@@ -9,14 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -81,33 +77,33 @@ internal fun ShopScreen(
                 itemEntities = listOf(
                     ItemEntity(
                         drawable = R.drawable.ic_crown_badge,
-                        name = "fsefse",
-                        point = 1000,
+                        name = "왕관 뱃지",
+                        point = 600,
                     ),
                     ItemEntity(
                         drawable = R.drawable.ic_silicon_badge,
-                        name = "fsefse",
-                        point = 1000,
+                        name = "별 리본 뱃지",
+                        point = 500,
                     ),
                     ItemEntity(
                         drawable = R.drawable.ic_trophy_badge,
-                        name = "fsefse",
-                        point = 1000,
+                        name = "트로피 뱃지",
+                        point = 600,
                     ),
                     ItemEntity(
                         drawable = R.drawable.ic_heart_badge,
-                        name = "fsefse",
+                        name = "하트 뱃지",
                         point = 1000,
                     ),
                     ItemEntity(
                         drawable = R.drawable.ic_star_badge,
-                        name = "fsefse",
-                        point = 1000,
+                        name = "별 뱃지",
+                        point = 1500,
                     ),
                     ItemEntity(
                         drawable = R.drawable.ic_dsm_badge,
-                        name = "fsefse",
-                        point = 1000,
+                        name = "DSM 뱃지",
+                        point = 2500,
                     ),
                 )
             )
@@ -157,12 +153,13 @@ private fun Item(
                 contentDescription = null,
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Body3(
+            modifier = Modifier.align(Alignment.Start),
             text = name,
             color = SafeColor.Gray900,
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         SafeMediumButton(
             text = "$point point",
             backgroundColor = SafeColor.Main500,
