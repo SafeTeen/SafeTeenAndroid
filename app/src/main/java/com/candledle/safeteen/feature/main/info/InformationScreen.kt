@@ -127,7 +127,8 @@ private fun Manuals(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(manualEntities) {
             Manual(
@@ -143,25 +144,28 @@ private fun Manual(
     @DrawableRes drawable: Int,
     manual: String,
 ) {
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Box(
             modifier = Modifier
-                .size(160.dp)
+                .fillMaxWidth()
+                .height(174.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(color = SafeColor.Gray300),
             contentAlignment = Alignment.Center,
         ) {
             Image(
-                modifier = Modifier.size(
-                    width = 100.dp,
-                    height = 78.dp,
-                ),
+                modifier = Modifier.size(104.dp),
                 painter = painterResource(id = drawable),
                 contentDescription = null,
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
-        Body3(text = manual)
+        Body3(
+            modifier = Modifier.align(Alignment.Start),
+            text = manual,
+        )
     }
 }
 
