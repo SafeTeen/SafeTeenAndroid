@@ -32,6 +32,7 @@ import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.feature.main.home.Rank
 
 @Composable
 internal fun MyPageScreen(
@@ -61,7 +62,7 @@ internal fun MyPageScreen(
                 profileImageUrl = "",
                 name = "정승훈",
                 currentReward = "2000",
-                currentRank = "감기",
+                rank = Rank.LumbarDisk
             )
             Spacer(modifier = Modifier.height(20.dp))
             Body3(text = stringResource(id = R.string.my_page_qna))
@@ -91,7 +92,7 @@ private fun MyInformation(
     profileImageUrl: String,
     name: String,
     currentReward: String,
-    currentRank: String,
+    rank: Rank,
 ) {
     Row(
         modifier = Modifier
@@ -114,7 +115,7 @@ private fun MyInformation(
         ) {
             Image(
                 modifier = Modifier.size(34.dp),
-                painter = painterResource(id = R.drawable.ic_cold),
+                painter = painterResource(id = rank.drawable),
                 contentDescription = null,
             )
         }
@@ -145,11 +146,11 @@ private fun MyInformation(
                 Caption(text = currentReward)
                 Spacer(modifier = Modifier.width(8.dp))
                 Caption(
-                    text = stringResource(id = R.string.my_page_cureent_rank),
+                    text = stringResource(id = R.string.my_page_current_rank),
                     color = SafeColor.Gray800,
                 )
                 Spacer(modifier = Modifier.width(2.dp))
-                Caption(text = currentRank)
+                Caption(text = stringResource(id = rank.rank))
             }
         }
     }
