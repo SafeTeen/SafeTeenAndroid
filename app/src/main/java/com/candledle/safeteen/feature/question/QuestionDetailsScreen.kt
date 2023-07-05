@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.Header
 import com.candledle.safeteen.design_system.button.SafeLargeButton
-import com.candledle.safeteen.design_system.textfield.SafeTextField
+import com.candledle.safeteen.design_system.textfield.SafeMediumTextField
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.Body4
 import com.candledle.safeteen.design_system.theme.Heading5
@@ -83,7 +83,7 @@ internal fun QuestionDetailsScreen(
                 modifier = Modifier.imePadding(),
             ) {
                 Box(modifier = Modifier.weight(0.7f)) {
-                    SafeTextField(
+                    SafeMediumTextField(
                         value = answer,
                         onValueChanged = onAnswerChange,
                         hint = stringResource(id = R.string.question_details_enter_answer),
