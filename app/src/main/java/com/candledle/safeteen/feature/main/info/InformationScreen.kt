@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +48,7 @@ internal fun InformationScreen(
     navController: NavController,
 ) {
 
-    var currentSelected by remember { mutableStateOf(SelectedMenu.QNA) }
+    var currentSelected by rememberSaveable { mutableStateOf(SelectedMenu.QNA) }
 
     val onClickQnaButton = {
         currentSelected = SelectedMenu.QNA
@@ -90,7 +91,9 @@ internal fun InformationScreen(
                     Manuals(
                         manualEntities = listOf(
                             ManualEntity(R.drawable.ic_fire, "화재"),
-                            ManualEntity(R.drawable.ic_motorcycle, "오토바이"),
+                            ManualEntity(R.drawable.ic_kick_board, "전동킥보드"),
+                            ManualEntity(R.drawable.ic_wind, "태풍"),
+                            ManualEntity(R.drawable.ic_motorcycle, "오토바이")
                         ),
                         navController = navController,
                     )
