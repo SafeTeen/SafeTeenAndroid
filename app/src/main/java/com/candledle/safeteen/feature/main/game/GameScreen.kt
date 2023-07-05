@@ -1,5 +1,9 @@
 package com.candledle.safeteen.feature.main.game
 
+import android.annotation.SuppressLint
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import com.candledle.safeteen.R
 import com.candledle.safeteen.design_system.button.SafeSmallButton
@@ -37,119 +42,35 @@ import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
 import com.candledle.safeteen.feature.main.home.Challenge
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 internal fun GameScreen(
     navController: NavController,
-){
+) {
 
-    var currentSelected by rememberSaveable { mutableStateOf(SelectedMenu.SPEED_QUIZ) }
-
-    val onClickQuizButton = {
-        currentSelected = SelectedMenu.SPEED_QUIZ
-    }
-
-    val onClickSimulationButton = {
-        currentSelected = SelectedMenu.SIMULATION
-    }
+    val url = "https://safe-teen-frontend.vercel.app/game"
 
     Column(
         modifier = Modifier.fillMaxSize(),
     ){
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-        ){
-            Spacer(modifier = Modifier.height(48.dp))
-            Heading6(text = stringResource(id = R.string.navigation_game))
-            Spacer(modifier = Modifier.height(12.dp))
-            SelectButtons(
-                currentSelected = currentSelected,
-                onClickQuizButton = onClickQuizButton,
-                onClickSimulationButton = onClickSimulationButton,
-            )
-        }
-    }
-}
+        Spacer(modifier = Modifier.height(48.dp))
+        AndroidView(
+            factory = {
+                WebView(it).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    webViewClient = WebViewClient()
 
-@Composable
-private fun SelectButtons(
-    currentSelected: SelectedMenu,
-    onClickQuizButton: () -> Unit,
-    onClickSimulationButton: () -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        SafeSmallButton(
-            text = stringResource(id = R.string.game_speed_quiz),
-            textColor = if (currentSelected == SelectedMenu.SPEED_QUIZ) SafeColor.White
-            else SafeColor.Black,
-            backgroundColor = if (currentSelected == SelectedMenu.SPEED_QUIZ) SafeColor.Main500
-            else SafeColor.Gray300,
-            onClick = onClickQuizButton,
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        SafeSmallButton(
-            text = stringResource(id = R.string.game_simulation),
-            textColor = if (currentSelected == SelectedMenu.SIMULATION) SafeColor.White
-            else SafeColor.Black,
-            backgroundColor = if (currentSelected == SelectedMenu.SIMULATION) SafeColor.Main500
-            else SafeColor.Gray300,
-            onClick = onClickSimulationButton,
+                    settings.javaScriptEnabled = true
+
+                    loadUrl(url)
+                }
+            },
+            update = {
+                it.loadUrl(url)
+            },
         )
     }
-}
-
-@Composable
-private fun SpeedQuizs(
-    challenges: List<Challenge>,
-) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(challenges) {
-            SpeedQuiz(challenge = it)
-        }
-    }
-}
-
-@Composable
-private fun SpeedQuiz(
-    challenge: Challenge,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(SafeColor.Gray300)
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(SafeColor.Gray300),
-            contentAlignment = Alignment.Center,
-        ) {
-            Image(
-                modifier = Modifier.size(36.dp),
-                painter = painterResource(id = challenge.drawable),
-                contentDescription = null,
-            )
-        }
-        Spacer(modifier = Modifier.width(8.dp))
-        Column {
-            Body1(text = challenge.title)
-            Spacer(modifier = Modifier.height(4.dp))
-            Caption(
-                text = "${challenge.point} 포인트 받기",
-                color = SafeColor.Main500,
-            )
-        }
-    }
-}
-
-private enum class SelectedMenu{
-    SPEED_QUIZ, SIMULATION
 }
