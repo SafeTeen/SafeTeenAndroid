@@ -1,5 +1,6 @@
 package com.candledle.safeteen.feature.shop
 
+import android.content.SharedPreferences
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,10 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.Badge
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.design_system.button.SafeMediumButton
 import com.candledle.safeteen.design_system.theme.Body1
@@ -37,13 +41,32 @@ import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.getPreferences
 
 @Composable
 internal fun ShopScreen(
     navController: NavController,
 ) {
 
-    var currentReward by remember { mutableStateOf(0) }
+    val context = LocalContext.current
+
+    val preference = getPreferences(context = context)
+
+    var currentReward by remember {
+        mutableStateOf(0)
+    }
+
+    var error by remember { mutableStateOf(false) }
+
+    val onErrorChange = { value: Boolean ->
+        error = value
+    }
+
+    val onCurrentRewardChange = { value: Int ->
+        currentReward = value
+    }
+
+    currentReward = preference.getInt(PrefKey.User.reward, 0)
 
     Column(
         modifier = Modifier
@@ -59,12 +82,14 @@ internal fun ShopScreen(
             Row {
                 Body2(
                     text = stringResource(id = R.string.shop_current_reward),
-                    color = SafeColor.Gray800,
+                    color = if (error) SafeColor.Red
+                    else SafeColor.Gray800,
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Body1(
                     text = currentReward.toString(),
-                    color = SafeColor.Gray900,
+                    color = if (error) SafeColor.Red
+                    else SafeColor.Gray900,
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
@@ -75,37 +100,17 @@ internal fun ShopScreen(
             Spacer(modifier = Modifier.height(12.dp))
             Items(
                 itemEntities = listOf(
-                    ItemEntity(
-                        drawable = R.drawable.ic_crown_badge,
-                        name = "왕관 뱃지",
-                        point = 600,
-                    ),
-                    ItemEntity(
-                        drawable = R.drawable.ic_silicon_badge,
-                        name = "별 리본 뱃지",
-                        point = 500,
-                    ),
-                    ItemEntity(
-                        drawable = R.drawable.ic_trophy_badge,
-                        name = "트로피 뱃지",
-                        point = 600,
-                    ),
-                    ItemEntity(
-                        drawable = R.drawable.ic_heart_badge,
-                        name = "하트 뱃지",
-                        point = 1000,
-                    ),
-                    ItemEntity(
-                        drawable = R.drawable.ic_star_badge,
-                        name = "별 뱃지",
-                        point = 1500,
-                    ),
-                    ItemEntity(
-                        drawable = R.drawable.ic_dsm_badge,
-                        name = "DSM 뱃지",
-                        point = 2500,
-                    ),
-                )
+                    Badge.Crown,
+                    Badge.Silicon,
+                    Badge.Trophy,
+                    Badge.Heart,
+                    Badge.Star,
+                    Badge.Dsm,
+                ),
+                preference = preference,
+                currentReward = currentReward,
+                onCurrentRewardChange = onCurrentRewardChange,
+                onErrorChange = onErrorChange,
             )
         }
     }
@@ -113,7 +118,11 @@ internal fun ShopScreen(
 
 @Composable
 private fun Items(
-    itemEntities: List<ItemEntity>,
+    itemEntities: List<Badge>,
+    preference: SharedPreferences,
+    currentReward: Int,
+    onCurrentRewardChange: (Int) -> Unit,
+    onErrorChange: (Boolean) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -125,7 +134,24 @@ private fun Items(
                 drawable = it.drawable,
                 name = it.name,
                 point = it.point,
-            )
+            ) {
+                if (currentReward >= it.point) {
+                    preference.edit().apply {
+                        putInt(
+                            PrefKey.User.badge,
+                            Badge.getBadge(drawable = it.drawable)!!.drawable,
+                        )
+                        putInt(
+                            PrefKey.User.reward,
+                            currentReward - it.point,
+                        )
+                    }.apply()
+                    onCurrentRewardChange(currentReward - it.point)
+                    onErrorChange(false)
+                } else {
+                    onErrorChange(true)
+                }
+            }
         }
     }
 }
@@ -135,6 +161,7 @@ private fun Item(
     @DrawableRes drawable: Int,
     name: String,
     point: Int,
+    onClick: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -163,14 +190,8 @@ private fun Item(
         SafeMediumButton(
             text = "$point point",
             backgroundColor = SafeColor.Main500,
-            onClick = {}
+            onClick = onClick,
         )
         Spacer(modifier = Modifier.height(4.dp))
     }
 }
-
-data class ItemEntity(
-    val drawable: Int,
-    val name: String,
-    val point: Int,
-)

@@ -13,9 +13,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.Header
 import com.candledle.safeteen.design_system.button.SafeLargeButton
@@ -23,11 +26,30 @@ import com.candledle.safeteen.design_system.textfield.SafeLargeTextField
 import com.candledle.safeteen.design_system.textfield.SafeMediumTextField
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.getList
+import com.candledle.safeteen.getPreferences
+import com.candledle.safeteen.putList
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 @Composable
 internal fun CreateQuestion(
     navController: NavController,
 ) {
+
+    val focusManager = LocalFocusManager.current
+
+    val context = LocalContext.current
+    val preference = getPreferences(context = context)
+    val editor = preference.edit()
+
+    val questions = preference.getList(PrefKey.Common.qnas).toMutableList()
+    val myQuestions = preference.getList(PrefKey.User.qnas).toMutableList()
+    val descriptions = preference.getList(PrefKey.Common.descriptions).toMutableList()
+    val myDescriptions = preference.getList(PrefKey.User.descriptions).toMutableList()
+
+    var questionError by remember { mutableStateOf(false) }
+    var descriptionError by remember { mutableStateOf(false) }
 
     var question by remember { mutableStateOf("") }
     val onQuestionChange = { value: String ->
@@ -37,6 +59,31 @@ internal fun CreateQuestion(
     var description by remember { mutableStateOf("") }
     val onDescriptionChange = { value: String ->
         description = value
+    }
+
+    val onCreateButtonClicked = {
+        if(question.isBlank()) questionError = true
+        else if(description.isBlank()) descriptionError = true
+        else{
+            runBlocking {
+                questionError = false
+                descriptionError = false
+                questions.add(question)
+                myQuestions.add(question)
+                descriptions.add(description)
+                myDescriptions.add(description)
+                editor.apply {
+                    putList(PrefKey.Common.qnas, questions)
+                    putList(PrefKey.User.qnas, myQuestions)
+                    putList(PrefKey.Common.descriptions, descriptions)
+                    putList(PrefKey.User.descriptions, myDescriptions)
+                }.apply()
+                delay(1000)
+                focusManager.clearFocus()
+                navController.popBackStack()
+            }
+        }
+        Unit
     }
 
     Column(
@@ -55,7 +102,8 @@ internal fun CreateQuestion(
             SafeMediumTextField(
                 value = question,
                 onValueChanged = onQuestionChange,
-                hint = stringResource(id = R.string.question_details_enter_answer),
+                hint = stringResource(id = R.string.create_question_enter_question),
+                error = questionError
             )
             Spacer(modifier = Modifier.height(24.dp))
             Body1(text = stringResource(id = R.string.create_question_description))
@@ -67,6 +115,7 @@ internal fun CreateQuestion(
                     value = description,
                     onValueChanged = onDescriptionChange,
                     hint = stringResource(id = R.string.create_question_enter_question_description),
+                    error = descriptionError,
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -76,7 +125,7 @@ internal fun CreateQuestion(
                 SafeLargeButton(
                     text = stringResource(id = R.string.create_question_do_create),
                     backgroundColor = SafeColor.Main500,
-                    onClick = {},
+                    onClick = onCreateButtonClicked,
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))

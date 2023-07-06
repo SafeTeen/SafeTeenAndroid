@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,7 +41,7 @@ internal fun Header(
         ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                modifier = Modifier.safeClickable { onDismiss() },
+                modifier = Modifier.size(16.dp).safeClickable { onDismiss() },
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = null,
             )

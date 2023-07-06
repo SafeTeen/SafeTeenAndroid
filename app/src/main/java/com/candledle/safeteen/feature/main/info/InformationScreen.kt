@@ -24,29 +24,34 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.MyQnas
 import com.candledle.safeteen.design_system.button.SafeSmallButton
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
-import com.candledle.safeteen.feature.main.mypage.QnA
+import com.candledle.safeteen.getList
+import com.candledle.safeteen.getPreferences
 import com.candledle.safeteen.navigation.SafeNavigation
 
 @Composable
 internal fun InformationScreen(
     navController: NavController,
 ) {
+
+    val context = LocalContext.current
+    val preference = getPreferences(context = context)
 
     var currentSelected by rememberSaveable { mutableStateOf(SelectedMenu.QNA) }
 
@@ -61,6 +66,8 @@ internal fun InformationScreen(
     val onClickCreateQnaButton = {
         navController.navigate(SafeNavigation.CreateQuestion)
     }
+
+    val qnas = preference.getList(PrefKey.Common.qnas)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -80,7 +87,7 @@ internal fun InformationScreen(
                 SelectedMenu.QNA -> {
                     Spacer(modifier = Modifier.height(24.dp))
                     MyQnas(
-                        questions = listOf(QnA("seifjseifj"), QnA("sejisejfisj")),
+                        questions = qnas.reversed(),
                         backgroundColor = SafeColor.Gray300,
                         navController = navController,
                     )
@@ -121,7 +128,7 @@ internal fun InformationScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(84.dp))
+            Spacer(modifier = Modifier.height(104.dp))
         }
     }
 }
@@ -215,6 +222,6 @@ data class ManualEntity(
     val manual: String,
 )
 
-enum class SelectedMenu {
+private enum class SelectedMenu {
     QNA, MANUAL,
 }

@@ -2,6 +2,7 @@ package com.candledle.safeteen.feature.landing
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,22 +32,21 @@ internal fun LandingScreen(
 ) {
 
     val onSignInButtonClick = {
-        navController.navigate(SafeNavigation.SignIn){
-            popUpTo(SafeNavigation.Landing){
-                inclusive = true
-            }
-        }
-    }
-
-    val onClickActionText = {
-        navController.navigate(SafeNavigation.SignUp) {
+        navController.navigate(SafeNavigation.SignIn) {
             popUpTo(SafeNavigation.Landing) {
                 inclusive = true
             }
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    val onClickActionText = {
+        navController.navigate(SafeNavigation.SignUp)
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
         Image(
             modifier = Modifier
                 .background(color = SafeColor.Black)
@@ -61,8 +61,8 @@ internal fun LandingScreen(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
-            Spacer(modifier = Modifier.height(88.dp))
             Heading6(
                 text = stringResource(id = R.string.landing_slogan),
                 color = SafeColor.White,
@@ -74,6 +74,9 @@ internal fun LandingScreen(
             )
             Spacer(modifier = Modifier.height(44.dp))
             Logo()
+            Spacer(modifier = Modifier.height(100.dp))
+        }
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             Spacer(modifier = Modifier.weight(1f))
             AuthButton(
                 buttonText = stringResource(id = R.string.sign_in),

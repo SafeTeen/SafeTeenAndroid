@@ -10,9 +10,13 @@ object SafeNavigation{
     const val Main = "main"
 
     const val CreateQuestion = "createQuestion"
-    const val QuestionDetails = "createDetails"
+    const val QuestionDetails = "createQuestion${Path.index}"
 
     const val ManualDetails = "manualDetails"
+
+    object Path{
+        const val index = "/{index}"
+    }
 
     object Navigation{
         const val Home = "home"

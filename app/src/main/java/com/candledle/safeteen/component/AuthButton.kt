@@ -1,6 +1,5 @@
 package com.candledle.safeteen.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,7 +36,10 @@ internal fun AuthButton(
         )
         Spacer(modifier = Modifier.height(12.dp))
         Row(
-            modifier = Modifier.clickable(onClick = onClickActionText),
+            modifier = Modifier.safeClickable(
+                onClick = onClickActionText,
+                rippleEnabled = false,
+            ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Body4(
@@ -50,6 +52,6 @@ internal fun AuthButton(
                 color = SafeColor.Main500,
             )
         }
-        Spacer(modifier = Modifier.height(44.dp))
+        Spacer(modifier = Modifier.height(28.dp))
     }
 }

@@ -1,5 +1,6 @@
 package com.candledle.safeteen.feature.main.home
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -8,7 +9,6 @@ import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,14 +19,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -34,16 +35,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
+import com.candledle.safeteen.component.safeClickable
 import com.candledle.safeteen.design_system.theme.Body1
 import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading4
 import com.candledle.safeteen.design_system.theme.Heading6
 import com.candledle.safeteen.design_system.theme.SafeColor
+import com.candledle.safeteen.getPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,13 +57,43 @@ import kotlinx.coroutines.launch
 internal fun HomeScreen(
     navController: NavController,
 ) {
+
+    val context = LocalContext.current
+
+    val preferences = getPreferences(context)
+
+    var currentReward by remember { mutableStateOf(0) }
+
+    val challenges = remember { mutableStateListOf(
+        Challenge(
+            drawable = R.drawable.ic_fire,
+            title = "화재 경보기 점검하고",
+            point = 100,
+        ),
+        Challenge(
+            drawable = R.drawable.ic_kick_board,
+            title = "전동 킥보드 안전장비 점검하고",
+            point = 200,
+        ),
+        Challenge(
+            drawable = R.drawable.ic_flu,
+            title = "독감 예방주사 맞고",
+            point = 800,
+        ),
+    )}
+
+    LaunchedEffect(Unit) {
+        currentReward = preferences.getInt(PrefKey.User.reward, 0)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = SafeColor.Gray300),
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
         ) {
             Spacer(modifier = Modifier.height(48.dp))
             Row(
@@ -79,30 +114,38 @@ internal fun HomeScreen(
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
-            CurrentPoint(currentReward = 2300)
-            Spacer(modifier = Modifier.height(16.dp))
-            Body1(text = stringResource(id = R.string.home_today_challenge))
-            Spacer(modifier = Modifier.height(8.dp))
-            TodayChallenges(
-                challenges = listOf(
-                    Challenge(
-                        drawable = R.drawable.ic_fire,
-                        title = "화재 경보기 점검하고",
-                        point = 100,
-                    ),
-                    Challenge(
-                        drawable = R.drawable.ic_fire,
-                        title = "화재 경보기 점검하고",
-                        point = 100,
-                    ),
-                    Challenge(
-                        drawable = R.drawable.ic_fire,
-                        title = "화재 경보기 점검하고",
-                        point = 100,
-                    ),
-                )
-            )
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState())
+            ) {
+                CurrentPoint(currentReward = currentReward)
+                Spacer(modifier = Modifier.height(16.dp))
+                Body1(text = stringResource(id = R.string.home_today_challenge))
+                Spacer(modifier = Modifier.height(8.dp))
+                TodayChallenges(
+                    challenges = challenges,
+                ) { point, index ->
+                    preferences.edit().apply {
+                        putInt(PrefKey.User.reward, preferences.getInt(PrefKey.User.reward, 0) + point)
+                    }.apply()
+
+                    currentReward += point
+
+
+                    challenges.removeAt(index)
+                }
+                Spacer(modifier = Modifier.height(72.dp))
+            }
         }
+    }
+}
+
+internal fun getRank(currentReward: Int): Rank {
+    return when (currentReward) {
+        in Rank.HeartShake.minReward until Rank.HeartShake.maxReward -> Rank.HeartShake
+        in Rank.LumbarDisk.minReward until Rank.LumbarDisk.maxReward -> Rank.LumbarDisk
+        in Rank.Flu.minReward until Rank.Flu.maxReward -> Rank.Flu
+        in Rank.Cold.minReward until Rank.Cold.maxReward -> Rank.Cold
+        else -> Rank.Happy
     }
 }
 
@@ -111,21 +154,19 @@ private fun CurrentPoint(
     currentReward: Int,
 ) {
 
-    val rank = when (currentReward) {
-        in Rank.HeartShake.minReward until Rank.HeartShake.maxReward -> Rank.HeartShake
-        in Rank.LumbarDisk.minReward until Rank.LumbarDisk.maxReward -> Rank.LumbarDisk
-        in Rank.Flu.minReward until Rank.Flu.maxReward -> Rank.Flu
-        in Rank.Cold.minReward until Rank.Cold.maxReward -> Rank.Cold
-        else -> Rank.Happy
-    }
+    val rank = getRank(currentReward)
 
     val coroutineScope = rememberCoroutineScope()
 
     var isInitialized by remember { mutableStateOf(false) }
 
+
+
     val animateProgress by animateFloatAsState(
-        targetValue = if (!isInitialized) 0f
-        else (currentReward.toFloat() / rank.maxReward.toFloat()),
+        targetValue = if(!isInitialized) 0f
+        //else if((currentReward.toFloat() - rank.minReward) / (rank.maxReward - rank.minReward) > 1f) 1f
+        else (currentReward.toFloat() - rank.minReward) / (rank.maxReward - rank.minReward),
+        //else 1f,
         animationSpec = tween(
             durationMillis = 2000,
             easing = LinearOutSlowInEasing,
@@ -156,7 +197,7 @@ private fun CurrentPoint(
         Spacer(modifier = Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Caption(
-                text = stringResource(id = R.string.my_page_current_reward),
+                text = stringResource(id = R.string.my_page_current_rank),
                 color = SafeColor.Gray700,
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -195,7 +236,6 @@ private fun RewardProgress(
     isInitialize: Boolean,
     animateProgress: Float,
 ) {
-
     Box(
         contentAlignment = Alignment.Center,
     ) {
@@ -232,19 +272,23 @@ private fun RewardProgress(
 @Composable
 private fun TodayChallenges(
     challenges: List<Challenge>,
+    onUpdateReward: (Int, Int) -> Unit,
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(challenges) {
-            TodayChallenge(challenge = it)
-        }
+    challenges.forEach {
+        TodayChallenge(
+            challenge = it,
+            index = challenges.indexOf(it),
+            onUpdateReward = onUpdateReward,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
 @Composable
 private fun TodayChallenge(
     challenge: Challenge,
+    index: Int,
+    onUpdateReward: (Int, Int) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -268,10 +312,11 @@ private fun TodayChallenge(
             )
         }
         Spacer(modifier = Modifier.width(8.dp))
-        Column {
+        Column{
             Body1(text = challenge.title)
             Spacer(modifier = Modifier.height(4.dp))
             Caption(
+                modifier = Modifier.safeClickable { onUpdateReward(challenge.point, index) },
                 text = "${challenge.point} 포인트 받기",
                 color = SafeColor.Main500,
             )
@@ -292,7 +337,7 @@ sealed class Rank(
     val maxReward: Int,
 ) {
     object HeartShake : Rank(
-        drawable = R.drawable.ic_heart_badge,
+        drawable = R.drawable.ic_heart_shake,
         rank = R.string.rank_heart_shake,
         minReward = 0,
         maxReward = 1500,
@@ -325,4 +370,25 @@ sealed class Rank(
         minReward = 8400,
         maxReward = 10000,
     )
+}
+
+private fun getMaxReward(
+    rank: Rank,
+): Int{
+
+    val currentReward = mutableListOf(
+        Rank.HeartShake.maxReward,
+        Rank.LumbarDisk.maxReward,
+        Rank.Flu.maxReward,
+        Rank.Cold.maxReward,
+        Rank.Happy.maxReward
+    )
+
+    val index = currentReward.indexOf(rank.maxReward)
+
+    for(i in index until currentReward.size){
+        currentReward.removeAt(i)
+    }
+
+    return currentReward.sum()
 }
