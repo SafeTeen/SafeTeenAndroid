@@ -52,6 +52,6 @@ internal fun AuthButton(
                 color = SafeColor.Main500,
             )
         }
-        Spacer(modifier = Modifier.height(44.dp))
+        Spacer(modifier = Modifier.height(28.dp))
     }
 }

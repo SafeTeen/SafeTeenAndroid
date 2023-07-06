@@ -82,14 +82,17 @@ internal fun QuestionDetailsScreen(
                 delay(1500)
             }
             focusManager.clearFocus()
-            answer = ""
             answers.add(answer)
-            totalAnswers[index] =
-                answers.toList().toString().replace("[", " ").replace("]", " ").trim()
-
+            if(totalAnswers.size -1 >= index) {
+                totalAnswers[index] =
+                    answers.toList().toString().replace("[", " ").replace("]", " ").trim()
+            }else {
+                totalAnswers.add(answers.toList().toString().replace("[", " ").replace("]", " ").trim())
+            }
             preference.edit().apply {
                 putList(PrefKey.Common.answers, totalAnswers.toList())
             }.apply()
+            answer = ""
         }
     }
 

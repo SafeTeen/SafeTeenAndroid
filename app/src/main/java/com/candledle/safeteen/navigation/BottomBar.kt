@@ -46,15 +46,10 @@ internal fun BottomBar(
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    val localWindowInset = with(LocalDensity.current) {
-        LocalWindowInsets.current.navigationBars.bottom.toDp()
-    }
-
     Column {
         BottomNavigation(
             modifier = Modifier
                 .height(68.dp)
-                .padding(bottom = localWindowInset)
                 .graphicsLayer(
                     clip = true,
                     shape = RoundedCornerShape(
@@ -99,11 +94,5 @@ internal fun BottomBar(
                 )
             }
         }
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(14.dp)
-                .background(color = SafeColor.White)
-        )
     }
 }

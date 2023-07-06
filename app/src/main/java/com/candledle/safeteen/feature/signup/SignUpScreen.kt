@@ -1,5 +1,6 @@
 package com.candledle.safeteen.feature.signup
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -67,9 +68,10 @@ fun SignUpScreen(
             with(getPreferences(context).edit()) {
                 putString(PrefKey.User.name, nickName)
                 putString(PrefKey.User.password, password)
-                putInt(PrefKey.User.reward, 0)
+                putInt(PrefKey.User.reward, 2000)
                 putString(PrefKey.User.id, id)
-            }
+            }.apply()
+
             navController.navigate(SafeNavigation.SignIn) {
                 popUpTo(SafeNavigation.SignUp) {
                     inclusive = true

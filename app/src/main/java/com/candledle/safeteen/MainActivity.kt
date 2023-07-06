@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -39,6 +41,11 @@ class MainActivity : ComponentActivity() {
             MODE_PRIVATE,
         )
 
+        window.decorView.apply {
+            systemUiVisibility =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -50,7 +57,11 @@ class MainActivity : ComponentActivity() {
 
                 val navHostController = rememberNavController()
 
-                setAppData(editor = getPreferences(this).edit())
+                val preferences = getPreferences(this)
+
+                if(!preferences.getBoolean(PrefKey.App.init, false)) {
+                    setAppData(editor = preferences.edit())
+                }
                 NavHost(
                     navController = navHostController,
                     startDestination = SafeNavigation.Landing,
@@ -116,16 +127,6 @@ class MainActivity : ComponentActivity() {
         editor: SharedPreferences.Editor,
     ) {
         editor.apply {
-            putString(PrefKey.User.id, "Tmdhoon2")
-            putString(PrefKey.User.password, "password1!")
-            putString(PrefKey.User.name, "정승훈")
-            putInt(PrefKey.User.reward, 1000)
-            putList(
-                PrefKey.User.qnas, listOf(
-                    "학교에서 지진 났을 때 책상 아래 vs 운동장으로 질주 뭐가 좋을까요??",
-                    "안전불감증 해결방법 추천 받는다",
-                )
-            )
             putList(
                 PrefKey.User.descriptions, listOf(
                     "학교에서 지진이 났을 때 책상 아래가 더 안전한가요, 아니면 운동장으로 나가는게 더 안전한가요?",
@@ -155,6 +156,7 @@ class MainActivity : ComponentActivity() {
                     "어 저 그거 누군지 알아요!,아 그거 사실 사감쌤이 키는거에요 ㅋㅋ,아이 누가보면 진짠줄 알겠네"
                 )
             )
+            putBoolean(PrefKey.App.init, true)
         }.apply()
     }
 }
@@ -178,6 +180,10 @@ object PrefKey {
         const val descriptions = "descriptions"
         const val answers = "answers"
     }
+
+    object App{
+        const val init = "init"
+    }
 }
 
 fun SharedPreferences.Editor.putList(
@@ -196,9 +202,11 @@ fun SharedPreferences.getList(
 ): List<String> {
     val json = getString(key, null)
     val list = arrayListOf<String>()
-    val jsonArray = JSONArray(json)
-    for (i in 0 until jsonArray.length()) {
-        list.add(jsonArray.optString(i))
+    if (json != null) {
+        val jsonArray = JSONArray(json)
+        for (i in 0 until jsonArray.length()) {
+            list.add(jsonArray.optString(i))
+        }
     }
 
     return list
@@ -246,14 +254,15 @@ sealed class Badge(
     )
 
     companion object {
-        fun getBadge(drawable: Int): Badge {
+        fun getBadge(drawable: Int): Badge? {
             return when (drawable) {
                 R.drawable.ic_crown_badge -> Crown
                 R.drawable.ic_silicon_badge -> Silicon
                 R.drawable.ic_trophy_badge -> Trophy
                 R.drawable.ic_heart_badge -> Heart
                 R.drawable.ic_star_badge -> Star
-                else -> Dsm
+                R.drawable.ic_dsm_badge -> Dsm
+                else -> null
             }
         }
 

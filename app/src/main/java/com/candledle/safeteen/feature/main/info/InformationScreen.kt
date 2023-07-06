@@ -87,7 +87,7 @@ internal fun InformationScreen(
                 SelectedMenu.QNA -> {
                     Spacer(modifier = Modifier.height(24.dp))
                     MyQnas(
-                        questions = qnas,
+                        questions = qnas.reversed(),
                         backgroundColor = SafeColor.Gray300,
                         navController = navController,
                     )

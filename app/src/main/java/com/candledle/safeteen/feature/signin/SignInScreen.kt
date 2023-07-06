@@ -1,5 +1,6 @@
 package com.candledle.safeteen.feature.signin
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -35,7 +37,6 @@ fun SignInScreen(
     navController: NavController,
 ) {
 
-    val coroutineScope = rememberCoroutineScope()
 
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -53,7 +54,11 @@ fun SignInScreen(
 
     var error by remember { mutableStateOf(false) }
 
+    val focusManager = LocalFocusManager.current
+
+
     val onSignInButtonClick = {
+        focusManager.clearFocus()
         runBlocking {
             delay(1000)
         }

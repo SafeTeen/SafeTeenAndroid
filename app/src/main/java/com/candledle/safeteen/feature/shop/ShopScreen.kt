@@ -136,13 +136,16 @@ private fun Items(
                 point = it.point,
             ) {
                 if (currentReward >= it.point) {
-                    preference.edit().putString(
-                        PrefKey.User.badge,
-                        Badge.getBadge(drawable = it.drawable).toString(),
-                    ).putInt(
-                        PrefKey.User.reward,
-                        currentReward - it.point,
-                    ).apply()
+                    preference.edit().apply {
+                        putInt(
+                            PrefKey.User.badge,
+                            Badge.getBadge(drawable = it.drawable)!!.drawable,
+                        )
+                        putInt(
+                            PrefKey.User.reward,
+                            currentReward - it.point,
+                        )
+                    }.apply()
                     onCurrentRewardChange(currentReward - it.point)
                     onErrorChange(false)
                 } else {

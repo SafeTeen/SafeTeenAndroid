@@ -53,7 +53,7 @@ internal fun GameScreen(
     Column(
         modifier = Modifier.fillMaxSize(),
     ){
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         AndroidView(
             factory = {
                 WebView(it).apply {

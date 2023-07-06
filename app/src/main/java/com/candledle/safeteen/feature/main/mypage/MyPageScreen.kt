@@ -20,7 +20,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,12 +35,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.candledle.safeteen.Badge
 import com.candledle.safeteen.PrefKey
 import com.candledle.safeteen.R
 import com.candledle.safeteen.component.MyQna
 import com.candledle.safeteen.design_system.theme.Body1
+import com.candledle.safeteen.design_system.theme.Body2
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.Caption
 import com.candledle.safeteen.design_system.theme.Heading6
@@ -65,9 +72,30 @@ internal fun MyPageScreen(
 
     val myQnas = preferences.getList(PrefKey.User.qnas)
 
-    val badge = Badge.getBadge(preferences.getString(PrefKey.User.badge, "") ?: null)
+    val badge = Badge.getBadge(preferences.getInt(PrefKey.User.badge, 0))
 
     val rank = getRank(preferences.getInt(PrefKey.User.reward, 0))
+
+    var signOutDialogState by remember { mutableStateOf(false) }
+
+    if (signOutDialogState) {
+        Dialog(
+            onDismissRequest = { signOutDialogState = false },
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(SafeColor.White)
+                    .padding(
+                        vertical = 24.dp
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -88,10 +116,12 @@ internal fun MyPageScreen(
                 badge = badge?.drawable,
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Body3(text = stringResource(id = R.string.my_page_qna))
-            Spacer(modifier = Modifier.height(8.dp))
-            MyQnas(questions = myQnas)
-            Spacer(modifier = Modifier.height(20.dp))
+            if(myQnas.isNotEmpty()) {
+                Body3(text = stringResource(id = R.string.my_page_qna))
+                Spacer(modifier = Modifier.height(8.dp))
+                MyQnas(questions = myQnas)
+                Spacer(modifier = Modifier.height(20.dp))
+            }
             Body3(text = stringResource(id = R.string.my_page_manage_account))
             Spacer(modifier = Modifier.height(8.dp))
             Card(
@@ -153,7 +183,7 @@ private fun MyInformation(
             .background(color = SafeColor.White)
             .padding(
                 horizontal = 14.dp,
-                vertical = 12.dp,
+                vertical = 6.dp,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -180,9 +210,9 @@ private fun MyInformation(
             ) {
                 Body1(text = name)
                 Spacer(modifier = Modifier.width(4.dp))
-                if(badge != null) {
+                if (badge != null) {
                     Image(
-                        modifier = Modifier.size(14.dp),
+                        modifier = Modifier.size(22.dp),
                         painter = painterResource(id = badge),
                         contentDescription = null,
                     )

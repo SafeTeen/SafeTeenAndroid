@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.candledle.safeteen.design_system.theme.Body2
 import com.candledle.safeteen.design_system.theme.Body3
 import com.candledle.safeteen.design_system.theme.SafeColor
 
@@ -36,7 +37,7 @@ internal fun MyQnas(
                 question = questions[index],
                 backgroundColor = backgroundColor,
             ) {
-                navController.navigate("createQuestion/$index")
+                navController.navigate("createQuestion/${questions.size-1-index}")
             }
         }
     }
@@ -60,9 +61,9 @@ internal fun MyQna(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.Top,
     ) {
-        Body3(text = "Q.")
+        Body2(text = "Q.")
         Spacer(modifier = Modifier.width(8.dp))
-        Body3(
+        Body2(
             text = question,
             color = questionColor,
             overflow = TextOverflow.Ellipsis,
