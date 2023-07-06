@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Safeteen</string>
+
+    <!--    Navigation-->
+
+    <string name="navigation_home">홈</string>
+    <string name="navigation_game">게임</string>
+    <string name="navigation_info">정보</string>
+    <string name="navigation_shop">상점</string>
+    <string name="navigation_my_page">내 정보</string>
+
+    <!--    Rank-->
+
+    <string name="rank_heart_shake">심장마비</string>
+    <string name="rank_lumbar_disk">허리디스크</string>
+    <string name="rank_flu">독감</string>
+    <string name="rank_cold">감기</string>
+    <string name="rank_happy">건강</string>
+
+    <!--    Landing Screen-->
+
+    <string name="landing_slogan">학생들의 안전한 생활을 위한,</string>
+    <string name="landing_safeteen">Safe Teen</string>
+
+    <!--    Login Screen-->
+
+    <string name="sign_in">로그인</string>
+    <string name="sign_in_no_account">계정이 없으신가요?</string>
+    <string name="sign_in_do_sign_up">회원가입하기</string>
+
+    <string name="sign_in_id">아이디</string>
+    <string name="sign_in_password">비밀번호</string>
+
+    <!--    SignUp Screen-->
+
+    <string name="sign_up">회원가입</string>
+    <string name="sign_up_have_account">이미 계정이 있으신가요?</string>
+    <string name="sign_up_do_sign_in">로그인 하기</string>
+
+    <string name="sign_up_nick_name">이름</string>
+    <string name="sign_up_password_repeat">비밀번호 재확인</string>
+
+    <!--    MyPage Screen-->
+
+    <string name="my_page_current_reward">현재 리워드</string>
+    <string name="my_page_current_rank">현재 등급</string>
+
+    <string name="my_page_qna">내가 등록한 QnA</string>
+    <string name="my_page_manage_account">계정 관리</string>
+
+    <string name="my_page_edit_profile">프로필 수정</string>
+    <string name="my_page_sign_out">로그아웃</string>
+
+    <!--    Information Screen-->
+
+    <string name="information_qna">QnA</string>
+    <string name="information_manual">재난 상황 메뉴얼</string>
+
+    <!--    Shop Screen-->
+
+    <string name="shop_current_reward">현재 리워드</string>
+    <string name="shop_description">리워드 포인트를 뱃지로 교환할 수 있습니다.</string>
+
+    <!--    Question Details Screen-->
+
+    <string name="question_details_enter_answer">답변을 입력해주세요</string>
+    <string name="question_details_create">등록</string>
+
+    <!--    Create Question Screen-->
+
+    <string name="create_question_question">질문</string>
+    <string name="create_question_description">자세한 설명</string>
+    <string name="create_question_enter_question">질문을 작성해주세요</string>
+    <string name="create_question_enter_question_description">질문에 대한 자세한 설명을 작성해주세요</string>
+
+    <string name="create_question_do_create">작성하기</string>
+
+    <!--    Home Screen-->
+
+    <string name="home_reward_point">리워드 포인트</string>
+    <string name="home_today_challenge">오늘의 챌린지</string>
+
+    <!--    Game Screen-->
+
+    <string name="game_speed_quiz">스피드 퀴즈</string>
+    <string name="game_simulation">시뮬레이션</string>
+
+</resources>
